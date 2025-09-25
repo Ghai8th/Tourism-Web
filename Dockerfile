@@ -4,7 +4,7 @@ FROM node:22-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat 
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies
@@ -53,4 +53,3 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 CMD ["node", "server.js"]
-
