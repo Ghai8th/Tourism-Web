@@ -9,10 +9,9 @@ WORKDIR /app
 
 # Install dependencies
 COPY package.json  package-lock.json* ./
-RUN \
-  elif [ -f package-lock.json ]; then npm ci; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN npm ci
+
+
 
 # Rebuild the source code
 FROM base AS builder
@@ -22,10 +21,7 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN \
-  elif [ -f package-lock.json ]; then npm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN npm run build
 
 # Production image
 FROM base AS runner
